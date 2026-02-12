@@ -1,0 +1,62 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id        String   @id @default(uuid())
+  username  String   @unique
+  classType String
+  level     Int      @default(1)
+  xp        Int      @default(0)
+  logic     Int      @default(10)
+  memory    Int      @default(10)
+  createdAt DateTime @default(now())
+  progress  UserProgress[]
+  inventory UserInventory[]
+}
+
+model Quest {
+  id          String   @id @default(uuid())
+  slug        String   @unique
+  title       String
+  description String
+  division    String
+  difficulty  Int
+  xpReward    Int
+  statReward  String
+  statAmount  Int
+  progress    UserProgress[]
+}
+
+model UserProgress {
+  id             String   @id @default(uuid())
+  userId         String
+  questId        String
+  status         String
+  codeSubmission String?
+  completedAt    DateTime?
+  user           User     @relation(fields: [userId], references: [id])
+  quest          Quest    @relation(fields: [questId], references: [id])
+}
+
+model Item {
+  id      String   @id @default(uuid())
+  name    String
+  effect  String
+  inventory UserInventory[]
+}
+
+model UserInventory {
+  userId  String
+  itemId  String
+  quantity Int
+  user    User   @relation(fields: [userId], references: [id])
+  item    Item   @relation(fields: [itemId], references: [id])
+
+  @@id([userId, itemId])
+}

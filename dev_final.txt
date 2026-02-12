@@ -1,0 +1,19 @@
+
+> cobol-quest@0.1.0 dev
+> next dev
+
+   ▲ Next.js 14.1.0
+   - Local:        http://localhost:3000
+   - Environments: .env
+
+ ✓ Ready in 1650ms
+ ○ Compiling / ...
+ ✓ Compiled / in 5.5s (1368 modules)
+ ✓ Compiled in 309ms (670 modules)
+ ✓ Compiled /api/user in 313ms (1351 modules)
+ ✓ Compiled in 483ms (1341 modules)
+ ✓ Compiled in 286ms (1341 modules)
+ ✓ Compiled in 264ms (1341 modules)
+ ✓ Compiled in 315ms (1341 modules)
+ ✓ Compiled in 235ms (1341 modules)
+ ✓ Compiled in 269ms (1341 modules)

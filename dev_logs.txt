@@ -1,0 +1,59 @@
+
+> cobol-quest@0.1.0 dev
+> next dev
+
+ ⚠ Port 3000 is in use, trying 3001 instead.
+ ⚠ Port 3001 is in use, trying 3002 instead.
+ ⚠ Port 3002 is in use, trying 3003 instead.
+ ⚠ Port 3003 is in use, trying 3004 instead.
+   ▲ Next.js 14.1.0
+   - Local:        http://localhost:3004
+   - Environments: .env
+
+ ✓ Ready in 1435ms
+ ○ Compiling / ...
+ ✓ Compiled / in 1679ms (1338 modules)
+ ✓ Compiled in 299ms (668 modules)
+ ✓ Compiled /api/user in 144ms (694 modules)
+ ✓ Compiled in 1114ms (1350 modules)
+ ✓ Compiled in 255ms (1341 modules)
+ ✓ Compiled in 352ms (1341 modules)
+ ✓ Compiled /api/progress in 73ms (695 modules)
+ ✓ Compiled (697 modules)
+Failed to update progress: PrismaClientKnownRequestError: 
+Invalid `prisma.userProgress.create()` invocation:
+
+
+Foreign key constraint violated on the foreign key
+    at ei.handleRequestError (/home/gnomad/Documents/Websites/COBOL Quest/node_modules/@prisma/client/runtime/library.js:121:7268)
+    at ei.handleAndLogRequestError (/home/gnomad/Documents/Websites/COBOL Quest/node_modules/@prisma/client/runtime/library.js:121:6593)
+    at ei.request (/home/gnomad/Documents/Websites/COBOL Quest/node_modules/@prisma/client/runtime/library.js:121:6300)
+    at async a (/home/gnomad/Documents/Websites/COBOL Quest/node_modules/@prisma/client/runtime/library.js:130:9551)
+    at async POST (webpack-internal:///(rsc)/./src/app/api/progress/route.ts:38:24)
+    at async /home/gnomad/Documents/Websites/COBOL Quest/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:63809
+    at async eU.execute (/home/gnomad/Documents/Websites/COBOL Quest/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:53964)
+    at async eU.handle (/home/gnomad/Documents/Websites/COBOL Quest/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:65062)
+    at async doRender (/home/gnomad/Documents/Websites/COBOL Quest/node_modules/next/dist/server/base-server.js:1333:42)
+    at async cacheEntry.responseCache.get.routeKind (/home/gnomad/Documents/Websites/COBOL Quest/node_modules/next/dist/server/base-server.js:1555:28)
+    at async DevServer.renderToResponseWithComponentsImpl (/home/gnomad/Documents/Websites/COBOL Quest/node_modules/next/dist/server/base-server.js:1463:28)
+    at async DevServer.renderPageComponent (/home/gnomad/Documents/Websites/COBOL Quest/node_modules/next/dist/server/base-server.js:1856:24)
+    at async DevServer.renderToResponseImpl (/home/gnomad/Documents/Websites/COBOL Quest/node_modules/next/dist/server/base-server.js:1894:32)
+    at async DevServer.pipeImpl (/home/gnomad/Documents/Websites/COBOL Quest/node_modules/next/dist/server/base-server.js:911:25)
+    at async NextNodeServer.handleCatchallRenderRequest (/home/gnomad/Documents/Websites/COBOL Quest/node_modules/next/dist/server/next-server.js:271:17)
+    at async DevServer.handleRequestImpl (/home/gnomad/Documents/Websites/COBOL Quest/node_modules/next/dist/server/base-server.js:807:17)
+    at async /home/gnomad/Documents/Websites/COBOL Quest/node_modules/next/dist/server/dev/next-dev-server.js:331:20
+    at async Span.traceAsyncFn (/home/gnomad/Documents/Websites/COBOL Quest/node_modules/next/dist/trace/trace.js:151:20)
+    at async DevServer.handleRequest (/home/gnomad/Documents/Websites/COBOL Quest/node_modules/next/dist/server/dev/next-dev-server.js:328:24)
+    at async invokeRender (/home/gnomad/Documents/Websites/COBOL Quest/node_modules/next/dist/server/lib/router-server.js:163:21)
+    at async handleRequest (/home/gnomad/Documents/Websites/COBOL Quest/node_modules/next/dist/server/lib/router-server.js:342:24)
+    at async requestHandlerImpl (/home/gnomad/Documents/Websites/COBOL Quest/node_modules/next/dist/server/lib/router-server.js:366:13)
+    at async Server.requestListener (/home/gnomad/Documents/Websites/COBOL Quest/node_modules/next/dist/server/lib/start-server.js:140:13) {
+  code: 'P2003',
+  meta: { modelName: 'UserProgress', constraint: null },
+  clientVersion: '6.19.2'
+}
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename '/home/gnomad/Documents/Websites/COBOL Quest/.next/cache/webpack/client-development/2.pack.gz_' -> '/home/gnomad/Documents/Websites/COBOL Quest/.next/cache/webpack/client-development/2.pack.gz'
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: incorrect header check
+ ✓ Compiled in 491ms (1341 modules)
+ ✓ Compiled in 293ms (1341 modules)
+ ✓ Compiled in 399ms (670 modules)

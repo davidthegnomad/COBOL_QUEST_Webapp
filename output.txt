@@ -1,0 +1,25 @@
+total 392
+drwxr-xr-x   8 gnomad gnomad   4096 Feb 11 14:10 .
+drwxr-xr-x   6 gnomad gnomad   4096 Feb 11 13:42 ..
+-rw-r--r--   1 gnomad gnomad   3523 Feb 10 10:52 DESIGN.md
+-rw-r--r--   1 gnomad gnomad  53248 Feb 11 13:56 dev.db
+-rw-r--r--   1 gnomad gnomad     29 Feb 11 12:34 .env
+-rw-r--r--   1 gnomad gnomad    464 Feb 11 13:29 .env.example
+-rw-r--r--   1 gnomad gnomad    355 Feb 11 13:30 .gitignore
+-rw-r--r--   1 gnomad gnomad   1063 Feb 11 13:28 LICENSE
+-rw-r--r--   1 gnomad gnomad   2465 Feb 11 13:41 marketing_kit.md
+drwxr-xr-x   6 gnomad gnomad   4096 Feb 11 14:09 .next
+-rw-r--r--   1 gnomad gnomad    201 Feb 11 13:01 next-env.d.ts
+drwxr-xr-x 391 gnomad gnomad  20480 Feb 11 14:00 node_modules
+-rw-r--r--   1 gnomad gnomad      0 Feb 11 14:10 output.txt
+-rw-r--r--   1 gnomad gnomad   1060 Feb 11 14:00 package.json
+-rw-r--r--   1 gnomad gnomad 237929 Feb 11 14:00 package-lock.json
+-rw-r--r--   1 gnomad gnomad     94 Feb 10 11:01 postcss.config.js
+drwxr-xr-x   2 gnomad gnomad   4096 Feb 11 14:04 prisma
+drwxr-xr-x   3 gnomad gnomad   4096 Feb 11 13:46 public
+-rw-r--r--   1 gnomad gnomad   2462 Feb 11 13:28 README.md
+-rw-r--r--   1 gnomad gnomad   1665 Feb 11 12:44 schema.backup
+drwxr-xr-x   2 gnomad gnomad   4096 Feb 11 13:21 scripts
+drwxr-xr-x   6 gnomad gnomad   4096 Feb 11 12:40 src
+-rw-r--r--   1 gnomad gnomad   1440 Feb 11 12:28 tailwind.config.ts
+-rw-r--r--   1 gnomad gnomad    803 Feb 10 11:01 tsconfig.json
