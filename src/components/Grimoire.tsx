@@ -11,8 +11,10 @@ import MainframeMap from './MainframeMap';
 import ArchitectAscensionModal from './ArchitectAscensionModal';
 import LevelUpToast from './LevelUpToast';
 import ElderMentor from './ElderMentor';
-import { validateSpell } from '../app/actions/validateSpell';
+import { validateSpell } from '@/lib/validateSpell';
+import { STATIC_DEMO, markQuestComplete } from '@/lib/demoStorage';
 import { getTechnomancerClass, getXPToNextLevel } from '../lib/levelLogic';
+import { assetPath } from '@/lib/assetPath';
 
 interface LevelConfig {
     id: number;
@@ -346,27 +348,15 @@ export default function Grimoire() {
         // 1. Client-Side Validation (Immediate feedback)
         const localResult = currentLevel.validator(code);
 
-        // 2. Server-Side Validation (The "Ancient Laws")
-        // We run this to ensure security and robust checking, but we can assume localResult is a good preliminary check.
-        // For now, we'll combine them or prioritize the Server Action if it returns specific errors.
-
         let finalSuccess = localResult.success;
         let finalMessage = localResult.message;
         let statRewards = localResult.statRewards;
         let newClassType = localResult.newClassType;
 
-        try {
-            const serverResult = await validateSpell(`level-${currentLevel.id}`, code);
-            if (!serverResult.success) {
-                // If the server rejects it, it overrides the client (or adds to it)
-                finalSuccess = false;
-                finalMessage = serverResult.message;
-            } else if (serverResult.success && !localResult.success) {
-                // Rare case: Server says OK but Local says No. usually trust Local if it's more specific, or Server if it's authoritative.
-                // Let's stick to local result for the complex logic that the server might not have fully implemented yet.
-            }
-        } catch (e) {
-            console.error("Server validation failed:", e);
+        const ritualResult = validateSpell(`level-${currentLevel.id}`, code);
+        if (!ritualResult.success) {
+            finalSuccess = false;
+            finalMessage = ritualResult.message;
         }
 
         if (finalSuccess) {
@@ -417,18 +407,24 @@ export default function Grimoire() {
 
             updateStats(updates);
 
-            try {
-                await fetch('/api/progress', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        questId: `level-${currentLevel.id}`,
-                        status: "COMPLETED",
-                        codeSubmission: code
-                    })
-                });
-            } catch (err) {
-                console.error("Failed to scribe progress to the Archive", err);
+            const questId = `level-${currentLevel.id}`;
+            if (STATIC_DEMO) {
+                markQuestComplete(questId, code);
+            } else {
+                try {
+                    await fetch('/api/progress', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            questId,
+                            status: "COMPLETED",
+                            codeSubmission: code
+                        })
+                    });
+                } catch (err) {
+                    console.error("Failed to scribe progress to the Archive", err);
+                    markQuestComplete(questId, code);
+                }
             }
 
         } else {
@@ -459,7 +455,7 @@ export default function Grimoire() {
             <div className="fixed inset-0 pointer-events-none z-0">
                 <div
                     className="absolute inset-0 bg-cover bg-center opacity-40 mix-blend-overlay"
-                    style={{ backgroundImage: "url('/fantasy_mainframe_bg.png')" }}
+                    style={{ backgroundImage: `url('${assetPath('/fantasy_mainframe_bg.png')}')` }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-transparent to-black/80" />
             </div>
@@ -500,7 +496,7 @@ export default function Grimoire() {
                             }`}>
 
                             {!isEternalArchitect && (
-                                <div className="absolute inset-0 opacity-5 pointer-events-none bg-[url('/parchment-texture.png')] bg-repeat mix-blend-overlay" />
+                                <div className="absolute inset-0 opacity-5 pointer-events-none bg-repeat mix-blend-overlay parchment-texture" />
                             )}
 
                             <div className="relative z-10 flex flex-col h-full">

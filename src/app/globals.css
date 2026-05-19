@@ -63,7 +63,7 @@ body {
 }
 
 .parchment-texture {
-  background-image: url('/parchment-texture.png');
+  background-image: var(--parchment-texture, url('/parchment-texture.png'));
   background-blend-mode: multiply;
 }
 

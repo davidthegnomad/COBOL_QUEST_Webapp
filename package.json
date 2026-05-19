@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "seed": "npx ts-node --compiler-options='{\"module\":\"commonjs\"}' scripts/seedQuests.ts"
+    "seed": "npx ts-node --compiler-options='{\"module\":\"commonjs\"}' scripts/seedQuests.ts",
+    "build:site-demo": "node scripts/build-site-demo.mjs",
+    "sync:site-demo": "node scripts/sync-to-website.mjs"
   },
   "prisma": {
     "seed": "npx ts-node --compiler-options='{\"module\":\"commonjs\"}' scripts/seedQuests.ts"

@@ -3,6 +3,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Scroll, Terminal, ShieldCheck, ArrowRight } from 'lucide-react';
+import { assetPath } from '@/lib/assetPath';
 
 interface HeroProps {
     onEnter: () => void;
@@ -87,7 +88,7 @@ export default function Hero({ onEnter }: HeroProps) {
             <div className="relative h-full min-h-[50vh] lg:min-h-screen overflow-hidden">
                 <div
                     className="absolute inset-0 bg-cover bg-center transition-transform duration-[10s] hover:scale-105"
-                    style={{ backgroundImage: "url('/hero.png')" }}
+                    style={{ backgroundImage: `url('${assetPath('/hero.png')}')` }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-l from-transparent via-black/20 to-black lg:to-black/80" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent lg:hidden" />

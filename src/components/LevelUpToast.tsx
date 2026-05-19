@@ -25,7 +25,7 @@ export default function LevelUpToast({ show, level, className, onClose }: LevelU
                         onClick={onClose}
                     >
                         {/* Background Texture Overlay */}
-                        <div className="absolute inset-0 opacity-10 pointer-events-none mix-blend-overlay bg-[url('/parchment-texture.png')] bg-repeat" />
+                        <div className="absolute inset-0 opacity-10 pointer-events-none mix-blend-overlay parchment-texture bg-repeat" />
 
                         {/* Animated Border Glow */}
                         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-gold-500/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out" />

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Cinzel, Courier_Prime, Libre_Baskerville } from "next/font/google";
 import "./globals.css";
 import { GameProvider } from "@/context/GameContext";
+import { assetPath } from "@/lib/assetPath";
 
 const cinzel = Cinzel({
     subsets: ["latin"],
@@ -33,7 +34,9 @@ export const metadata: Metadata = {
         description: "Master the sacred syntax of the ancients in this RPG coding adventure.",
         images: ["/hero.png"],
     },
-    metadataBase: new URL("http://localhost:3000"),
+    metadataBase: new URL(
+        process.env.NEXT_PUBLIC_SITE_URL ?? "https://davidcole.cloud/DEMO/cobol-quest"
+    ),
 };
 
 export default function RootLayout({
@@ -41,8 +44,10 @@ export default function RootLayout({
 }: Readonly<{
     children: React.ReactNode;
 }>) {
+    const parchment = assetPath("/parchment-texture.png");
+
     return (
-        <html lang="en">
+        <html lang="en" style={{ ["--parchment-texture" as string]: `url('${parchment}')` }}>
             <body className={`${cinzel.variable} ${courier.variable} ${loreFont.variable} font-fantasy antialiased`}>
                 <GameProvider>
                     {children}

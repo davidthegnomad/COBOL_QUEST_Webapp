@@ -20,4 +20,16 @@ yarn-error.log*
 # Prisma
 /prisma/*.db
 /prisma/*.db-journal
+dev.db
+*.db-journal
+
+# Local dev noise (do not commit)
+dev_*.txt
+*.log
+output.txt
+schema.backup
+
+# Static demo build
+out/
+.demo-build-stash/
 

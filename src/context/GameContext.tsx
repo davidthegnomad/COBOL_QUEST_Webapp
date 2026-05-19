@@ -1,6 +1,7 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, ReactNode, useCallback } from 'react';
+import { STATIC_DEMO, loadStats, saveStats, type StoredStats } from '@/lib/demoStorage';
 
 interface GameStats {
     logic: number;
@@ -14,6 +15,7 @@ interface GameContextType {
     stats: GameStats;
     updateStats: (updates: Partial<GameStats>) => void;
     isLoading: boolean;
+    isStaticDemo: boolean;
 }
 
 const defaultStats: GameStats = {
@@ -28,14 +30,16 @@ const GameContext = createContext<GameContextType | undefined>(undefined);
 
 export function GameProvider({ children }: { children: ReactNode }) {
     const [stats, setStats] = useState<GameStats>(defaultStats);
-    const [isLoading, setIsLoading] = useState(false);
-
-    // List of keys allowed to be sent to the API to avoid sending unrelated state
-    const ALLOWED_STATS = ['logic', 'memory', 'legacy', 'level'];
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        const fetchUser = async () => {
-            setIsLoading(true);
+        const hydrate = async () => {
+            if (STATIC_DEMO) {
+                setStats(loadStats());
+                setIsLoading(false);
+                return;
+            }
+
             try {
                 const res = await fetch('/api/user');
                 if (res.ok) {
@@ -43,28 +47,42 @@ export function GameProvider({ children }: { children: ReactNode }) {
                     setStats({
                         logic: data.logic,
                         memory: data.memory,
-                        legacy: data.xp, // Map DB 'xp' to App 'legacy'
+                        legacy: data.xp,
                         level: data.level,
                         classType: data.classType
                     });
                 }
             } catch (error) {
                 console.error("Failed to fetch user stats", error);
+                setStats(loadStats());
             } finally {
                 setIsLoading(false);
             }
         };
 
-        fetchUser();
+        hydrate();
     }, []);
 
-    const updateStats = async (updates: Partial<GameStats>) => {
-        // Optimistic UI update
-        setStats(prev => ({ ...prev, ...updates }));
+    const updateStats = useCallback(async (updates: Partial<GameStats>) => {
+        setStats(prev => {
+            const next = { ...prev, ...updates };
+            if (STATIC_DEMO || typeof window !== 'undefined') {
+                const stored: StoredStats = {
+                    logic: next.logic,
+                    memory: next.memory,
+                    legacy: next.legacy,
+                    level: next.level,
+                    classType: next.classType,
+                };
+                saveStats(stored);
+            }
+            return next;
+        });
+
+        if (STATIC_DEMO) return;
 
         try {
-            // Map App 'legacy' back to DB 'xp' if present
-            const payload: any = { ...updates };
+            const payload: Record<string, unknown> = { ...updates };
             if (payload.legacy !== undefined) {
                 payload.xp = payload.legacy;
                 delete payload.legacy;
@@ -77,12 +95,11 @@ export function GameProvider({ children }: { children: ReactNode }) {
             });
         } catch (error) {
             console.error("Failed to save stats", error);
-            // In a real app, we might revert the optimistic update here
         }
-    };
+    }, []);
 
     return (
-        <GameContext.Provider value={{ stats, updateStats, isLoading }}>
+        <GameContext.Provider value={{ stats, updateStats, isLoading, isStaticDemo: STATIC_DEMO }}>
             {children}
         </GameContext.Provider>
     );
